@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Mention } from "primereact/mention";
-import "primereact/resources/themes/saga-blue/theme.css"; // Theme
-import "primereact/resources/primereact.min.css"; // Core CSS
-import { Button } from "primereact/button";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
 
 const App = () => {
   const [suggestions, setSuggestions] = useState<{ name: string }[]>([]);
@@ -33,7 +32,6 @@ const App = () => {
         trigger="@"
         cols={50}
       />
-      <Button>hi</Button>
     </div>
   );
 };
