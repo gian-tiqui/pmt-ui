@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Mention } from "primereact/mention";
 import "primereact/resources/themes/saga-blue/theme.css"; // Theme
 import "primereact/resources/primereact.min.css"; // Core CSS
+import { Button } from "primereact/button";
 
 const App = () => {
   const [suggestions, setSuggestions] = useState<{ name: string }[]>([]);
@@ -23,7 +24,7 @@ const App = () => {
   };
 
   return (
-    <div className="h-screen w-screen grid place-content-center">
+    <div className="grid w-screen h-screen place-content-center">
       <Mention
         suggestions={suggestions}
         onSearch={fetchSuggestions}
@@ -32,6 +33,7 @@ const App = () => {
         trigger="@"
         cols={50}
       />
+      <Button>hi</Button>
     </div>
   );
 };

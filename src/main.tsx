@@ -7,7 +7,7 @@ import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <PrimeReactProvider value={{ unstyled: false, pt: {} }}>
+    <PrimeReactProvider value={{ unstyled: false, pt: {}, ripple: true }}>
       <App />
     </PrimeReactProvider>
   </StrictMode>
