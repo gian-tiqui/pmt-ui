@@ -5,6 +5,16 @@ type RouteMap = {
   path: string;
   element: ReactNode;
   id?: string;
+  hidden: boolean;
 };
 
-export type { RouteMap };
+type SignInFormFields = {
+  email: string;
+  password: string;
+};
+
+type ForgotPasswordFields = {
+  email: string;
+};
+
+export type { RouteMap, SignInFormFields, ForgotPasswordFields };

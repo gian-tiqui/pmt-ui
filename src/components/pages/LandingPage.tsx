@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import hospitalFacede from "../../assets/wmc_facade.png";
 import { Button } from "primereact/button";
 import PageTemplate from "../templates/PageTemplate";
+import { useEffect } from "react";
+import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessAndRefreshTokensNotEmpty()) navigate("/projects");
+  }, [navigate]);
+
   return (
     <PageTemplate>
       <div className="flex flex-col gap-4 lg:flex-row">
