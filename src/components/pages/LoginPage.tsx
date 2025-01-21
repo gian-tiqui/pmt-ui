@@ -20,7 +20,11 @@ const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [counter, setCounter] = useState<number>(10);
-  const { handleSubmit, register } = useForm<SignInFormFields>();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<SignInFormFields>();
   const emailToastRef = useRef<Toast>(null);
   const intervalRef = useRef<number | null>(null);
   const navigate = useNavigate();
@@ -55,18 +59,6 @@ const LoginPage = () => {
 
   const handleLogin = async ({ email, password }: SignInFormFields) => {
     setLoading(true);
-
-    if (!email.includes("@westlakemed.com.ph")) {
-      emailToastRef.current?.show({
-        severity: "error",
-        summary: "Email invalid",
-        detail: "Email must be from the WMC",
-      });
-
-      setLoading(false);
-
-      return;
-    }
 
     try {
       const loginResponse = await axios.post(`${API_URI}/api/v1/auth/login`, {
@@ -139,37 +131,60 @@ const LoginPage = () => {
             Manage the project timelines and activities here.
           </h4>
           <div className="flex flex-col w-full gap-1">
-            <label
-              htmlFor="emailInput"
-              className="text-sm font-semibold text-blue-400"
-            >
-              Email
-            </label>
-            <IconField id="emailInput" iconPosition="left">
-              <InputIcon className="pi pi-envelope"></InputIcon>
-              <InputText
-                id="emailInput"
-                {...register("email", { required: true })}
-                placeholder="example@westlakemed.com.ph"
-                className="w-full text-black bg-inherit dark:border-slate-800 dark:text-white dark:hover:border-blue-400"
-              />
-            </IconField>
+            <div>
+              <label
+                htmlFor="emailInput"
+                className="text-sm font-semibold text-blue-400"
+              >
+                Email
+              </label>
+              <IconField id="emailInput" iconPosition="left">
+                <InputIcon className="pi pi-envelope"></InputIcon>
+                <InputText
+                  id="emailInput"
+                  {...register("email", {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@westlakemed\.com\.ph$/,
+                      message: "Email must be from the WMC",
+                    },
+                  })}
+                  placeholder="example@westlakemed.com.ph"
+                  className="w-full text-black bg-inherit dark:border-slate-800 dark:text-white dark:hover:border-blue-400"
+                />
+              </IconField>
+              {errors.email && (
+                <small className="text-red-500 ps-1">
+                  {errors.email?.message}
+                </small>
+              )}
+            </div>
 
-            <label
-              htmlFor="passwordInput"
-              className="text-sm font-semibold text-blue-400"
-            >
-              Password
-            </label>
-            <IconField id="passwordInput" iconPosition="left">
-              <InputIcon id="passwordInput" className="pi pi-lock"></InputIcon>
-              <InputText
-                {...register("password", { required: true })}
-                placeholder="*********"
-                className="w-full text-black bg-inherit dark:border-slate-800 dark:text-white dark:hover:border-blue-400"
-                type="password"
-              />
-            </IconField>
+            <div>
+              <label
+                htmlFor="passwordInput"
+                className="text-sm font-semibold text-blue-400"
+              >
+                Password
+              </label>
+              <IconField id="passwordInput" iconPosition="left">
+                <InputIcon
+                  id="passwordInput"
+                  className="pi pi-lock"
+                ></InputIcon>
+                <InputText
+                  {...register("password", { required: true })}
+                  placeholder="*********"
+                  className="w-full text-black bg-inherit dark:border-slate-800 dark:text-white dark:hover:border-blue-400"
+                  type="password"
+                />
+              </IconField>
+              {errors.password && (
+                <small className="text-red-500 ps-1">
+                  {errors.password?.message}
+                </small>
+              )}
+            </div>
           </div>
           <Link
             to={"/forgot-password"}

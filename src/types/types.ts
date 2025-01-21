@@ -17,4 +17,15 @@ type ForgotPasswordFields = {
   email: string;
 };
 
-export type { RouteMap, SignInFormFields, ForgotPasswordFields };
+type Project = {
+  id: number;
+  name: string;
+  startDate?: Date;
+  endDate?: Date;
+  description?: string;
+  authorId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type { RouteMap, SignInFormFields, ForgotPasswordFields, Project };
