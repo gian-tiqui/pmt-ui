@@ -4,7 +4,7 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreateProjectFormFields } from "../../types/types";
 import decodeAccessToken from "../../@utils/functions/decodeAccessToken";
@@ -18,19 +18,47 @@ const CreateProjectButton = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const toastRef = useRef<Toast>(null);
+  const intervalRef = useRef<number | null>(null);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue,
     getValues,
+    reset,
   } = useForm<CreateProjectFormFields>();
   const { setSidebarSignal } = useSidebarSignalStore();
+
+  useEffect(() => {
+    if (disabled) {
+      setCounter(10);
+
+      intervalRef.current = window.setInterval(() => {
+        setCounter((prevCounter) => {
+          if (prevCounter > 1) {
+            return prevCounter - 1;
+          } else {
+            clearInterval(intervalRef.current!);
+            setDisabled(false);
+            return 0;
+          }
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [disabled]);
 
   const handleCreateProject = async ({
     description,
     name,
   }: CreateProjectFormFields) => {
+    setLoading(true);
     await decodeAccessToken()
       .then((data) => {
         console.log(data);
@@ -47,9 +75,38 @@ const CreateProjectButton = () => {
 
       if (response.status === 201) {
         setSidebarSignal(true);
+
+        toastRef.current?.show({
+          summary: "Project Created",
+          severity: "success",
+        });
       }
     } catch (error) {
-      console.error(error);
+      const {
+        status,
+        response: {
+          data: { message },
+        },
+      } = error as {
+        response: { data: { message: string; error: string } };
+        status: number;
+      };
+
+      if (status === 429) {
+        toastRef.current?.show({
+          severity: "error",
+          summary: "Please wait",
+          detail: message,
+        });
+
+        setDisabled(true);
+
+        return;
+      }
+    } finally {
+      setLoading(false);
+      setVisible(false);
+      reset();
     }
   };
 
@@ -109,7 +166,7 @@ const CreateProjectButton = () => {
               )}
             </div>
 
-            <div>
+            <div className="mb-4">
               <label
                 htmlFor="projectDescriptionInput"
                 className="text-sm font-semibold text-blue-400"

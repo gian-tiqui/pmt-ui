@@ -29,6 +29,9 @@ const ProjectSection = () => {
 
   return (
     <section className="col-span-9 px-4 pt-20 ">
+      <p className="mb-3 text-2xl font-medium text-blue-500 dark:text-blue-400">
+        {project?.name}
+      </p>
       <TabView
         pt={{
           panelContainer: {
@@ -96,6 +99,18 @@ const ProjectSection = () => {
           }}
         >
           List here
+        </TabPanel>
+        <TabPanel
+          header="Settings"
+          leftIcon="pi pi-gear mr-2"
+          pt={{
+            headerAction: {
+              className: "bg-inherit",
+            },
+            content: { className: "bg-inherit" },
+          }}
+        >
+          Settings here
         </TabPanel>
       </TabView>
     </section>
