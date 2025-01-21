@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
 import CustomAvatar from "../avatar/CustomAvatar";
+import CreateProjectButton from "../button/CreateProjectButton";
+import InboxButton from "../button/InboxButton";
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState<boolean>(true);
@@ -41,8 +43,11 @@ const Header = () => {
           WMC<span className="text-black dark:text-white">KANBAN</span>
         </div>
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
+        <CreateProjectButton />
+        <InboxButton />
         <DarkModeButton />
+
         {accessAndRefreshTokensNotEmpty() && <CustomAvatar />}
       </div>
     </header>

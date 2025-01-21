@@ -91,6 +91,7 @@ const LoginPage = () => {
         response: { data: { message: string; error: string } };
         status: number;
       };
+
       if (status === 429) {
         emailToastRef.current?.show({
           severity: "error",

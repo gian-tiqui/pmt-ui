@@ -17,6 +17,14 @@ type ForgotPasswordFields = {
   email: string;
 };
 
+type CreateProjectFormFields = {
+  name: string;
+  startDate?: Date;
+  endDate?: Date;
+  description: string;
+  authorId: number;
+};
+
 type Project = {
   id: number;
   name: string;
@@ -28,4 +36,21 @@ type Project = {
   updatedAt: Date;
 };
 
-export type { RouteMap, SignInFormFields, ForgotPasswordFields, Project };
+type DecodeAccessToken = {
+  sub: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  departmentId: number;
+  description: string;
+  code: string;
+};
+
+export type {
+  DecodeAccessToken,
+  RouteMap,
+  SignInFormFields,
+  ForgotPasswordFields,
+  Project,
+  CreateProjectFormFields,
+};
