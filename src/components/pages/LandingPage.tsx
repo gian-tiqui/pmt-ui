@@ -17,13 +17,14 @@ const LandingPage = () => {
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="flex items-center justify-center flex-1">
           <div className="p-6 pt-12 lg:p-12">
-            <h1 className="mb-4 text-3xl font-bold text-center text-blue-400 lg:text-5xl dark:text-neutral-0 lg:leading-normal lg:text-left">
-              Lorem ipsum dolor sit <br />
-              <span className="text-primary">consectetur adipiscing</span>
+            <h1 className="mb-4 text-3xl font-bold tracking-tighter text-center text-black dark:text-white lg:text-5xl dark:text-neutral-0 lg:leading-normal lg:text-left">
+              Introducing <span className="text-blue-400">WMC Kanban</span>{" "}
+              <br />
             </h1>
             <p className="mb-8 leading-normal text-center text-neutral-700 dark:text-neutral-200 lg:text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              A portal dedicated to the department heads of the Westlake Medical
+              Center. Manage your project timeline, activities, and updates in
+              this app.
             </p>
             <div className="flex items-center justify-center gap-6 lg:justify-start">
               <Link to={"login"}>

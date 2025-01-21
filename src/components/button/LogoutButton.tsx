@@ -1,8 +1,32 @@
 import { Button } from "primereact/button";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
+import { useRef } from "react";
+import { Toast } from "primereact/toast";
+import Cookies from "js-cookie";
+import { NAMESPACE } from "../../@utils/namespace/namespace";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
-  const confirmLogout = () => {};
+  const logoutToastRef = useRef<Toast>(null);
+  const navigate = useNavigate();
+
+  const confirmLogout = () => {
+    if (!accessAndRefreshTokensNotEmpty()) {
+      alert("access tokens are empty.");
+      return;
+    }
+
+    localStorage.removeItem(NAMESPACE);
+    Cookies.remove(NAMESPACE);
+
+    logoutToastRef.current?.show({
+      severity: "info",
+      summary: "Logout Successful",
+    });
+
+    navigate("/login");
+  };
 
   const handleLogout = () => {
     confirmDialog({
@@ -17,7 +41,14 @@ const LogoutButton = () => {
 
   return (
     <>
-      <ConfirmDialog />
+      <Toast ref={logoutToastRef} />
+      <ConfirmDialog
+        pt={{
+          content: { className: "dark:bg-slate-900 dark:text-white" },
+          header: { className: "dark:bg-slate-900 dark:text-white" },
+          footer: { className: "dark:bg-slate-900 dark:text-white" },
+        }}
+      />
       <Button
         className="flex justify-center w-full gap-2 font-semibold h-9"
         icon="pi pi-sign-out"
