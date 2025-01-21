@@ -27,11 +27,11 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 z-50 flex items-center w-full h-16 px-12 bg-neutral-100/80 dark:bg-slate-950/80 backdrop-blur-md ${
+      className={`fixed top-0 z-50 flex items-center justify-between w-full h-16 px-12 bg-neutral-100/80 dark:bg-slate-950/80 backdrop-blur-md ${
         !isAtTop && "border-b dark:border-slate-800"
       }`}
     >
-      <Link to={"/"} className="flex items-center justify-start w-full gap-2">
+      <Link to={"/"} className="flex items-center justify-start gap-2">
         <Image
           alt="Westlake Medical Center"
           src={wmcLogo}
@@ -41,7 +41,7 @@ const Header = () => {
           WMC<span className="text-black dark:text-white">KANBAN</span>
         </div>
       </Link>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4">
         <DarkModeButton />
         {accessAndRefreshTokensNotEmpty() && <CustomAvatar />}
       </div>

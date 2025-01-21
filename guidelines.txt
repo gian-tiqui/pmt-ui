@@ -1,0 +1,10 @@
+Style Guide:
+
+Dark/Light
+
+Primary: bg-neutral-200/bg-slate-900
+Secondary: bg-white/bg-slate-900/40
+Border: default border color/bg-slate-700
+Text Primary: bg-blue-400
+Text Secondary: bg-black/bg-white
+Text Tertiary: bg-gray-700
