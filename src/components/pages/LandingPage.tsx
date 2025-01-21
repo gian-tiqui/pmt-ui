@@ -26,9 +26,14 @@ const LandingPage = () => {
               Center. Manage your project timeline, activities, and updates in
               this app.
             </p>
-            <div className="flex items-center justify-center gap-6 lg:justify-start">
+            <div className="flex items-center justify-center gap-3 lg:justify-start">
               <Link to={"login"}>
                 <Button className="font-medium rounded-lg h-9">Sign in</Button>
+              </Link>
+              <Link to={"/"}>
+                <Button className="font-medium text-black rounded-lg dark:text-blue-400 bg-inherit h-9">
+                  Learn More
+                </Button>
               </Link>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
 import CustomAvatar from "../avatar/CustomAvatar";
+import CreateProjectButton from "../button/CreateProjectButton";
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState<boolean>(true);
@@ -42,6 +43,7 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center gap-4">
+        <CreateProjectButton />
         <DarkModeButton />
         {accessAndRefreshTokensNotEmpty() && <CustomAvatar />}
       </div>
