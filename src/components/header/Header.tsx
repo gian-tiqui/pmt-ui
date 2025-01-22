@@ -35,7 +35,10 @@ const Header = () => {
         !isAtTop && "border-b dark:border-slate-800"
       }`}
     >
-      <Link to={"/"} className="flex items-center justify-start gap-2">
+      <Link
+        to={loggedIn ? "" : "/"}
+        className="flex items-center justify-start gap-2"
+      >
         <Image
           alt="Westlake Medical Center"
           src={wmcLogo}

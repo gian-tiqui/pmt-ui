@@ -6,6 +6,8 @@ import NotFound from "../components/pages/NotFoundPage";
 import ForgotPasswordPage from "../components/pages/ForgotPasswordPage";
 import Header from "../components/header/Header";
 import ProjectLandingSection from "../components/pages/ProjectLandingSectionPage";
+import CustomSidebar from "../components/sidebar/CustomSidebar";
+import ProjectSection from "../components/pages/ProjectPage";
 
 const RouteProvider = () => {
   const routes: RouteMap[] = [
@@ -19,9 +21,15 @@ const RouteProvider = () => {
       hidden: false,
     },
     {
-      name: "Projects",
+      name: "Main Landing Page",
       path: "/projects",
       element: <ProjectLandingSection />,
+      hidden: true,
+    },
+    {
+      name: "Project",
+      path: "/projects/:projectId",
+      element: <ProjectSection />,
       hidden: true,
     },
   ];
@@ -29,11 +37,13 @@ const RouteProvider = () => {
   return (
     <Router>
       <Header />
-      <Routes>
-        {routes.map((route, index) => (
-          <Route key={index} element={route.element} path={route.path} />
-        ))}
-      </Routes>
+      <CustomSidebar>
+        <Routes>
+          {routes.map((route, index) => (
+            <Route key={index} element={route.element} path={route.path} />
+          ))}
+        </Routes>
+      </CustomSidebar>
     </Router>
   );
 };

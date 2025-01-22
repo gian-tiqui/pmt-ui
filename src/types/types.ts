@@ -34,6 +34,7 @@ type Project = {
   authorId: number;
   createdAt: Date;
   updatedAt: Date;
+  author: User;
 };
 
 type DecodeAccessToken = {
@@ -46,7 +47,20 @@ type DecodeAccessToken = {
   code: string;
 };
 
+type UpdateProjectInfo = {
+  name: string;
+  description: string;
+  authorId?: number;
+};
+
+type User = {
+  firstName: string;
+  lastName: string;
+};
+
 export type {
+  User,
+  UpdateProjectInfo,
   DecodeAccessToken,
   RouteMap,
   SignInFormFields,
