@@ -11,7 +11,7 @@ const CustomAvatar = () => {
     <div>
       <Avatar
         label="J"
-        className="font-bold bg-blue-400 border border-gray-300 dark:text-white dark:border-slate-700"
+        className="font-bold bg-blue-400 border border-gray-300 hover:bg-blue-500 dark:text-white dark:border-slate-700"
         shape="circle"
         onClick={(event) => overlayPanelRef.current?.toggle(event)}
       />

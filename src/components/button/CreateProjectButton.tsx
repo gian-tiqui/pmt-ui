@@ -61,7 +61,6 @@ const CreateProjectButton = () => {
     setLoading(true);
     await decodeAccessToken()
       .then((data) => {
-        console.log(data);
         if (data?.sub) setValue("authorId", data?.sub);
       })
       .catch((err) => console.error(err));
@@ -190,7 +189,7 @@ const CreateProjectButton = () => {
           </div>
 
           <Button
-            disabled={disabled}
+            disabled={disabled || loading}
             icon={loading ? "pi pi-spinner pi pi-spin" : "pi pi-plus"}
             className="flex justify-center w-full gap-3 font-bold"
             type="submit"
