@@ -7,9 +7,11 @@ import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefr
 import CustomAvatar from "../avatar/CustomAvatar";
 import CreateProjectButton from "../button/CreateProjectButton";
 import InboxButton from "../button/InboxButton";
+import useLoginStore from "../../@utils/zustand/login";
 
 const Header = () => {
   const [isAtTop, setIsAtTop] = useState<boolean>(true);
+  const { loggedIn } = useLoginStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 z-50 flex items-center justify-between w-full h-16 px-12 bg-neutral-100/80 dark:bg-slate-950/80 backdrop-blur-md ${
+      className={`fixed top-0 z-50 left-0 right-0 flex items-center justify-between w-full h-16 px-12 bg-neutral-100/80 dark:bg-slate-950/80 backdrop-blur-sm ${
         !isAtTop && "border-b dark:border-slate-800"
       }`}
     >
@@ -44,11 +46,16 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center gap-3">
-        <CreateProjectButton />
-        <InboxButton />
+        {accessAndRefreshTokensNotEmpty() && loggedIn && (
+          <>
+            <CreateProjectButton />
+            <InboxButton />
+          </>
+        )}
+
         <DarkModeButton />
 
-        {accessAndRefreshTokensNotEmpty() && <CustomAvatar />}
+        {accessAndRefreshTokensNotEmpty() && loggedIn && <CustomAvatar />}
       </div>
     </header>
   );

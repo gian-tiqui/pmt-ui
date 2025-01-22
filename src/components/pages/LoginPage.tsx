@@ -15,6 +15,7 @@ import { API_URI } from "../../@utils/http-common/http-common";
 import handleError from "../../@utils/functions/errorHandler";
 import { NAMESPACE } from "../../@utils/namespace/namespace";
 import Cookies from "js-cookie";
+import useLoginStore from "../../@utils/zustand/login";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,6 +29,7 @@ const LoginPage = () => {
   const emailToastRef = useRef<Toast>(null);
   const intervalRef = useRef<number | null>(null);
   const navigate = useNavigate();
+  const { setLoggedIn } = useLoginStore();
 
   useEffect(() => {
     if (accessAndRefreshTokensNotEmpty()) navigate("/projects");
@@ -77,6 +79,7 @@ const LoginPage = () => {
         if (accessToken && refreshToken) {
           localStorage.setItem(NAMESPACE, accessToken);
           Cookies.set(NAMESPACE, refreshToken);
+          setLoggedIn(true);
 
           navigate("/projects");
         }

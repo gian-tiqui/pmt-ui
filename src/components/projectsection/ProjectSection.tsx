@@ -3,6 +3,7 @@ import useProjectIdStore from "../../@utils/zustand/projectId";
 import fetchProjectById from "../../@utils/functions/fetchProjectById";
 import { TabPanel, TabView } from "primereact/tabview";
 import SummaryPanel from "./components/SummaryPanel";
+import ProjectLandingSection from "../pages/ProjectLandingSectionPage";
 
 const ProjectSection = () => {
   const { projectId } = useProjectIdStore();
@@ -13,12 +14,7 @@ const ProjectSection = () => {
     enabled: !!projectId,
   });
 
-  if (!projectId)
-    return (
-      <section className="grid col-span-9 bg-inherit place-content-center">
-        Select a project.
-      </section>
-    );
+  if (!projectId) return <ProjectLandingSection />;
 
   if (isLoading)
     return (
@@ -28,7 +24,7 @@ const ProjectSection = () => {
     );
 
   return (
-    <section className="col-span-9 px-4 pt-20 ">
+    <section className="col-span-9 px-4 pt-20">
       <p className="mb-3 text-2xl font-medium text-blue-500 dark:text-blue-400">
         {project?.name}
       </p>

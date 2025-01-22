@@ -21,6 +21,7 @@ const handleError = (
       summary: err,
       detail: message,
     });
+    return;
   }
 
   if (status === 400) {
@@ -29,7 +30,14 @@ const handleError = (
       summary: err,
       detail: message,
     });
+    return;
   }
+
+  emailToastRef.current?.show({
+    severity: "error",
+    summary: err,
+    detail: "There is a problem in the server. Please wait",
+  });
 };
 
 export default handleError;
