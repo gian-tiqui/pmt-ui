@@ -6,10 +6,12 @@ import { Toast } from "primereact/toast";
 import Cookies from "js-cookie";
 import { NAMESPACE } from "../../@utils/namespace/namespace";
 import { useNavigate } from "react-router-dom";
+import useLoginStore from "../../@utils/zustand/login";
 
 const LogoutButton = () => {
   const logoutToastRef = useRef<Toast>(null);
   const navigate = useNavigate();
+  const { setLoggedIn } = useLoginStore();
 
   const confirmLogout = () => {
     if (!accessAndRefreshTokensNotEmpty()) {
@@ -24,6 +26,8 @@ const LogoutButton = () => {
       severity: "info",
       summary: "Logout Successful",
     });
+
+    setLoggedIn(false);
 
     navigate("/login");
   };

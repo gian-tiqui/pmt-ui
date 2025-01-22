@@ -142,11 +142,15 @@ const CreateProjectButton = () => {
         <form onSubmit={handleSubmit(handleCreateProject)}>
           <div className="flex flex-col w-full gap-1">
             <div>
+              <p className="text-sm text-gray-700 mb-7 dark:text-gray-400">
+                Required fields are marked with asterisk{" "}
+                <span className="text-red-400">*</span>
+              </p>
               <label
                 htmlFor="projectNameInput"
                 className="text-sm font-semibold text-blue-400"
               >
-                Title
+                Title <span className="text-red-400">*</span>
               </label>
               <IconField id="projectNameInput" iconPosition="left">
                 <InputIcon className="pi pi-info"></InputIcon>

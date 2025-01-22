@@ -1,5 +1,4 @@
 import { ScrollPanel } from "primereact/scrollpanel";
-import useProjectIdStore from "../../@utils/zustand/projectId";
 import { useQuery } from "@tanstack/react-query";
 import fetchUserProjects from "../../@utils/functions/fetchUserProjects";
 import React, { ReactNode, useEffect } from "react";
@@ -7,15 +6,17 @@ import useSidebarSignalStore from "../../@utils/zustand/sidebarSignal";
 import SidebarSkeleton from "../skeleton/SidebarSkeleton";
 import ProjectSectionSkeleton from "../skeleton/ProjectSectionSkeleton";
 import useLoginStore from "../../@utils/zustand/login";
+import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children?: ReactNode;
 }
 
 const CustomSidebar: React.FC<Props> = ({ children }) => {
-  const { setProjectId } = useProjectIdStore();
   const { sidebarSignal, setSidebarSignal } = useSidebarSignalStore();
   const { loggedIn } = useLoginStore();
+  const navigate = useNavigate();
   const SLICE_OFFSET: number = 0;
   const SLICE_AMOUNT: number = 5;
 
@@ -45,7 +46,7 @@ const CustomSidebar: React.FC<Props> = ({ children }) => {
     return () => setSidebarSignal(false);
   }, [sidebarSignal, refetch, setSidebarSignal]);
 
-  if (!loggedIn) return children;
+  if (!loggedIn || !accessAndRefreshTokensNotEmpty()) return children;
 
   if (isLoading)
     return (
@@ -70,7 +71,7 @@ const CustomSidebar: React.FC<Props> = ({ children }) => {
           <p
             className="hover:cursor-pointer"
             key={project.id}
-            onClick={() => setProjectId(project.id)}
+            onClick={() => navigate(`/projects/${project.id}`)}
           >
             {project.name}
           </p>
@@ -81,7 +82,7 @@ const CustomSidebar: React.FC<Props> = ({ children }) => {
             <p
               className="hover:cursor-pointer"
               key={project.id}
-              onClick={() => setProjectId(project.id)}
+              onClick={() => navigate(`/projects/${project.id}`)}
             >
               {project.name}
             </p>
@@ -89,7 +90,7 @@ const CustomSidebar: React.FC<Props> = ({ children }) => {
         </ScrollPanel>
       </div>
 
-      <div className="flex justify-center w-full">{children}</div>
+      <div className="flex w-full px-4 pt-20">{children}</div>
     </div>
   );
 };

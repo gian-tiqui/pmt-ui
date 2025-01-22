@@ -55,7 +55,7 @@ const ProjectLandingSection = () => {
   }, []);
 
   return (
-    <section className="w-full h-screen col-span-9 px-20 pt-20 overflow-auto bg-inherit">
+    <section className="w-full col-span-9 px-20 bg-inherit">
       <h4 className="mb-16 text-3xl font-medium text-center">
         Welcome back, <span className="text-blue-400">{displayName}</span>
       </h4>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import PageTemplate from "../templates/PageTemplate";
 import accessAndRefreshTokensNotEmpty from "../../@utils/functions/accessAndRefreshTokensNotEmpty";
 import { useNavigate } from "react-router-dom";
-import ProjectSection from "../projectsection/ProjectSection";
+import ProjectSection from "./ProjectPage";
 
 const ProjectsPage = () => {
   const navigate = useNavigate();
